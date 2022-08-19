@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS CITY;  
+CREATE TABLE CITY (  
+city_code VARCHAR(50) NOT NULL,
+city_name VARCHAR(50) NOT NULL,  
+city_pincode VARCHAR(50) NOT NULL  
+);   
