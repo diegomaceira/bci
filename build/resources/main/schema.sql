@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS CITY;  
+
 CREATE TABLE CITY (  
-city_code VARCHAR(50) NOT NULL,
+city_code NUMERIC AUTO_INCREMENT  PRIMARY KEY,  
 city_name VARCHAR(50) NOT NULL,  
-city_pincode VARCHAR(50) NOT NULL  
-);   
+city_pincode NUMERIC(8) NOT NULL  
+);  

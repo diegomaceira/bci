@@ -3,7 +3,6 @@ package cl.com.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,22 +18,17 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/user")
+	@GetMapping("/login")
 	private List<User> getAllUsers() {
 		return userService.getAllUser();
 	}
 
-	@GetMapping("/user/{id}")
+	@GetMapping("/login/{id}")
 	private User getUser(@PathVariable("id") int id) {
 		return userService.getUserById(id);
 	}
 
-	@DeleteMapping("/user/{id}")
-	private void deleteUser(@PathVariable("id") int id) {
-		userService.delete(id);
-	}
-
-	@PostMapping("/user")
+	@PostMapping("/sign-up")
 	private int saveUser(@RequestBody User student) {
 		userService.saveOrUpdate(student);
 		return student.getId();
