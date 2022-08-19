@@ -10,6 +10,7 @@ public class EmployeeController {
 
 	@GetMapping("/employ")
 	Employee empleado() {
+		System.out.println("EIAPEPE");
 		Employee employee = new Employee("test", "123");
 		return employee;
 	}
