@@ -2,7 +2,9 @@ package cl.com.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +31,7 @@ public class UserController {
 	}
 
 	@PostMapping("/sign-up")
-	private int saveUser(@RequestBody User student) {
-		userService.saveOrUpdate(student);
-		return student.getId();
+	private ResponseEntity<?> saveUser(@RequestBody User student) {		
+		return userService.saveOrUpdate(student);
 	}
 }

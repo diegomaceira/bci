@@ -1,5 +1,6 @@
 package cl.com.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 
 @Entity
 @Table
@@ -25,12 +25,23 @@ public class User {
 	private String name;
 	
 	@Column	
-	@Email(message = "formato de email invalido")
 	private String email;
 	
 	@Column
-	private String password;
-	
+	private String password;	
+
+	@Column
+	private Timestamp created;
+
+	@Column
+	private Timestamp lastLogin;
+
+	@Column
+	private String token;
+
+	@Column
+	private Boolean isActive;
+		
 	@OneToMany(targetEntity=Telephone.class,cascade = CascadeType.ALL)  
     private List<Telephone> phones;  
 	
@@ -72,6 +83,38 @@ public class User {
 
 	public void setPhones(List<Telephone> phones) {
 		this.phones = phones;
+	}
+	
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

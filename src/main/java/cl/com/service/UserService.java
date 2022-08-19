@@ -1,11 +1,16 @@
 package cl.com.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import cl.com.model.ErrorDetail;
 import cl.com.model.User;
 import cl.com.repository.UserRepository;
 
@@ -25,12 +30,24 @@ public class UserService {
 		return userRepository.findById(id).get();
 	}
 
-	public void saveOrUpdate(User user) {
+	public ResponseEntity<?> saveOrUpdate(User user) {
+				
+		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
+		
+		//Email validation
+		if(!Pattern.compile("^(.+)@(.+)$").matcher(user.getEmail()).matches()) {
+			errorDetail.add(new ErrorDetail(null, 403, "Formato de email invalido"));
+			return ResponseEntity.ok(new cl.com.model.Error(errorDetail));
+		}
+						
+		user.setCreated(new Timestamp(System.currentTimeMillis()));
+		user.setLastLogin(new Timestamp(System.currentTimeMillis()));		
+		user.setIsActive(true);
+		
 		userRepository.save(user);
-	}
-
-	public void delete(int id) {
-		userRepository.deleteById(id);
+		
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 	
+
 }
