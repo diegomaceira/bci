@@ -9,8 +9,7 @@ import cl.com.model.Employee;
 public class EmployeeController {
 
 	@GetMapping("/employ")
-	Employee empleado() {
-		System.out.println("EIAPEPE");
+	Employee empleado() {		
 		Employee employee = new Employee("test", "123");
 		return employee;
 	}
