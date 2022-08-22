@@ -24,7 +24,16 @@ public class Telephone {
 	
 	@Column
 	private String contrycode;	
-		
+
+	public Telephone(long number, int citycode, String contrycode) {		
+		this.number = number;
+		this.citycode = citycode;
+		this.contrycode = contrycode;
+	}
+
+	public Telephone() {		
+	}
+	
 	public int getId() {
 		return id;
 	}

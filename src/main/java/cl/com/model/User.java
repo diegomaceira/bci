@@ -44,6 +44,17 @@ public class User {
 	@OneToMany(targetEntity=Telephone.class,cascade = CascadeType.ALL)  
     private List<Telephone> phones;  
 	
+	public User(String name, String email, String password, List<Telephone> phones) {			
+		this.name = name;
+		this.email = email;
+		this.password = password;		
+		this.phones = phones;
+	}
+	
+	public User(){
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
