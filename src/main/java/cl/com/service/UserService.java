@@ -27,7 +27,7 @@ public class UserService {
 	
 	public ResponseEntity<?> getAllUser() {
 		List<User> users = new ArrayList<User>();
-		userRepository.findAll().forEach(student -> users.add(student));
+		userRepository.findAll().forEach(user -> users.add(user));
 		return ResponseEntity.ok(users);
 	}
   
