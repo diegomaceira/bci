@@ -25,17 +25,17 @@ public class UserService {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
-	public List<User> getAllUser() {
-		List<User> students = new ArrayList<User>();
-		userRepository.findAll().forEach(student -> students.add(student));
-		return students;
+	public ResponseEntity<?> getAllUser() {
+		List<User> users = new ArrayList<User>();
+		userRepository.findAll().forEach(student -> users.add(student));
+		return ResponseEntity.ok(users);
 	}
   
-	public User getUserById(int id) {		
-		return userRepository.findById(id).orElse(new User());
+	public ResponseEntity<?> getUserById(int id) {		
+		return ResponseEntity.ok(userRepository.findById(id));
 	}
 
-	public ResponseEntity<?> saveOrUpdate(User user) {
+	public ResponseEntity<?> save(User user) {
 				
 		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
 		
