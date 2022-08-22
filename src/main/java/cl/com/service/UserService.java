@@ -1,7 +1,8 @@
 package cl.com.service;
 
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -39,21 +40,44 @@ public class UserService {
 		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
 		
 		//Email validation
-		if(!Pattern.compile("^(.+)@(.+)$").matcher(user.getEmail()).matches()) {
-			errorDetail.add(new ErrorDetail(null, 403, "Formato de email invalido"));
-			return ResponseEntity.ok(new cl.com.model.Error(errorDetail));
-		}
+		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(user.getEmail()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de email invalido"));			
 		
-		System.out.println(" token: " + jwtTokenUtil.generateToken(user.getName()));
-						
-		user.setCreated(new Timestamp(System.currentTimeMillis()));
-		user.setLastLogin(new Timestamp(System.currentTimeMillis()));		
+		//Password validation 
+		//if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de password invalido"));		
+		if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z]{1})(?=.*\\d)[A-Za-z\\d]{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de password invalido"));
+							
+		if(errorDetail.size()>0)return ResponseEntity.ok(new cl.com.model.Error(errorDetail));
+		
+	    String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
+      		
+		user.setCreated(formatedDate);
+		user.setLastLogin(formatedDate);		
 		user.setIsActive(true);
+		user.setToken(jwtTokenUtil.generateToken(user.getName()));
 		
 		userRepository.save(user);
 		
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
-	
+	/*
+	void validate(String password) {
+	    //String minMaxLength = "/^[\s\S]{8,32}$/";
+	    String upper = "/[A-Z]/";
+	    String lower = "/[a-z]/";
+        String number = "/[0-9]/";
+	    String special = "/[^A-Za-z0-9]/";
+	    int count = 0;
+
+	    if (minMaxLength.test(password)) {
+	        // Only need 3 out of 4 of these to match
+	        if (upper.test(password)) count++;
+	        if (lower.test(password)) count++;
+	        if (number.test(password)) count++;
+	        if (special.test(password)) count++;
+	    }
+
+	    return count >= 3;
+	}
+	*/
 
 }

@@ -1,12 +1,20 @@
 package cl.com.bci;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import cl.com.controller.UserController;
+import spock.lang.*;
+
 @SpringBootTest
-class BciApplicationTests {
+class BciApplicationTests extends Specification {
 
-	//@Test
-	//void contextLoads() {
-	//}
+    @Autowired (required = false)
+    private UserController userController;
 
+    
+    void def () {
+    	  
+    	}
+    
 }

@@ -2,7 +2,6 @@ package cl.com.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +19,17 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/login")
+	@GetMapping(path= "/login" , consumes = "application/json", produces = "application/json" )
 	private List<User> getAllUsers() {
 		return userService.getAllUser();
 	}
 
-	@GetMapping("/login/{id}")
+	@GetMapping(path="/login/{id}", consumes = "application/json", produces = "application/json" )
 	private User getUser(@PathVariable("id") int id) {
 		return userService.getUserById(id);
 	}
 
-	@PostMapping("/sign-up")
+	@PostMapping(path="/sign-up", consumes = "application/json", produces = "application/json" )
 	private ResponseEntity<?> saveUser(@RequestBody User student) {		
 		return userService.saveOrUpdate(student);
 	}

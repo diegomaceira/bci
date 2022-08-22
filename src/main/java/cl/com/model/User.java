@@ -1,6 +1,5 @@
 package cl.com.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -31,10 +30,10 @@ public class User {
 	private String password;	
 
 	@Column
-	private Timestamp created;
+	private String created;
 
 	@Column
-	private Timestamp lastLogin;
+	private String lastLogin;
 
 	@Column
 	private String token;
@@ -85,19 +84,19 @@ public class User {
 		this.phones = phones;
 	}
 	
-	public Timestamp getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(Timestamp created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
-	public Timestamp getLastLogin() {
+	public String getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(Timestamp lastLogin) {
+	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 
