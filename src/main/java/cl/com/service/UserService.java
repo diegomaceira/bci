@@ -31,13 +31,16 @@ public class UserService {
 		return students;
 	}
   
-	public User getUserById(int id) {
-		return userRepository.findById(id).get();
+	public User getUserById(int id) {		
+		return userRepository.findById(id).orElse(new User());
 	}
 
 	public ResponseEntity<?> saveOrUpdate(User user) {
 				
 		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
+		
+		//Exist user on db?
+		if(userRepository.findByEmail(user.getEmail())!=null)errorDetail.add(new ErrorDetail(null, 403, "Ya existe un usuario con ese email"));
 		
 		//Email validation
 		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(user.getEmail()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de email invalido"));			
