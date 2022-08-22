@@ -1,23 +1,21 @@
 package cl.com.model;
 
-import java.sql.Timestamp;
-
 public class ErrorDetail {
 
-	private Timestamp timestamp;
+	private String timestamp;
 	private int codigo;
 	private String detail;
 	
-	public ErrorDetail(Timestamp timestamp,int codigo,String detail) {
+	public ErrorDetail(String timestamp,int codigo,String detail) {
 		this.timestamp=timestamp;
 		this.codigo=codigo;
 		this.detail=detail;
 	}
 	
-	public Timestamp getTimestamp() {
+	public String getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 	public int getCodigo() {

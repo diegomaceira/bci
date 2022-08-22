@@ -1,0 +1,40 @@
+Instrucciones de construccion del proyecto microservicio bci:
+
+-el proyecto se encuentra alojado en un repositorio git publico:
+https://github.com/diegomaceira/bci
+
+-se puede descargar haciendo un git clone mediante 
+SSH:
+	git@github.com:diegomaceira/bci.git
+o HTTPS:
+	https://github.com/diegomaceira/bci.git
+	
+-una vez descargado el proyecto se importa a eclipse o intellij
+haciendo un import Existing gradle project.
+
+-Una vez importado el proyecto, se tiene que correr los comando clean y luego build
+de gradle para que termine de descargar las dependencias.
+
+-por ultimo el proyecto se ejecuta dandole boton derecho a la clase BciApplication.java
+"run as" -> "java application"
+
+-Se pueden llamar a los endpoints utilizando la herramientas postman o tambien mediante curl,
+en mi caso utilize postman.
+El proyecto consta de 3 endpoints, dos metodos get, para obtener todos los usuarios u obtenerlo uno solo.
+
+http://localhost:8080/login 
+
+http://localhost:8080/login/{id}
+
+y un metodo post, para el alta del usuario. 
+
+http://localhost:8080/sign-up
+
+En el header de cada peticion es importante definir la siguiente clave valor:
+content-type: application/json 
+ya que los endpoints expuestos, solo consumen y generan json.
+
+-El proyecto tambien cuenta con una consola H2 para visualizar las tablas de base de datos
+y las modificaciones que se realizan sobre ellas:
+
+http://localhost:8080/h2-console
