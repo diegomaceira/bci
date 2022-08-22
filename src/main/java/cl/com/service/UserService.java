@@ -38,21 +38,20 @@ public class UserService {
 	public ResponseEntity<?> save(User user) {
 				
 		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
+		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
 		
 		//Exist user on db?
-		if(userRepository.findByEmail(user.getEmail())!=null)errorDetail.add(new ErrorDetail(null, 403, "Ya existe un usuario con ese email"));
+		if(userRepository.findByEmail(user.getEmail())!=null)errorDetail.add(new ErrorDetail(formatedDate, 400, "Ya existe un usuario con ese email"));
 		
 		//Email validation
-		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(user.getEmail()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de email invalido"));			
+		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(user.getEmail()).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de email invalido"));			
 		
 		//Password validation 
 		//if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de password invalido"));		
-		if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z]{1})(?=.*\\d)[A-Za-z\\d]{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de password invalido"));
+		if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z]{1})(?=.*\\d)[A-Za-z\\d]{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de password invalido"));
 							
 		if(errorDetail.size()>0)return ResponseEntity.ok(new cl.com.model.Error(errorDetail));
-		
-	    String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
-      		
+			          	
 		user.setCreated(formatedDate);
 		user.setLastLogin(formatedDate);		
 		user.setIsActive(true);

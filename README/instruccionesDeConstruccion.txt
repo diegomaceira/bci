@@ -20,7 +20,7 @@ de gradle para que termine de descargar las dependencias.
 
 -Se pueden llamar a los endpoints utilizando la herramientas postman o tambien mediante curl,
 en mi caso utilize postman.
-El proyecto consta de 3 endpoints, dos metodos get, para obtener todos los usuarios u obtenerlo uno solo.
+El proyecto consta de 3 endpoints, dos metodos get, uno para obtener todos los usuarios y el otro para obtenerlo uno solo.
 
 http://localhost:8080/login 
 
@@ -29,6 +29,44 @@ http://localhost:8080/login/{id}
 y un metodo post, para el alta del usuario. 
 
 http://localhost:8080/sign-up
+
+el siguiente input se utiliza dentro del body para saber que datos tiene que dar de alta el programa, los telefonos son una lista
+por lo cual podria tener varios telefonos asociados.
+
+{
+   "name":"diego maceira",
+   "email":"macei@google.com",
+   "password":"asdb1sdA34",
+   "phones":[
+      {
+         "number":"1234",
+         "citycode":"1",
+         "contrycode":"ARG"
+      }, {
+         "number":"234",
+         "citycode":"2",
+         "contrycode":"CHI"
+      },.........
+   ]
+}
+
+en caso de que usuario tenga un password con formato incorrecto devuelve un error, en caso de que el mail sea invalido devuelve otro error
+y en caso de que el mail del usuario ya se encuentre dado de alta, tambien devuelve otro error con la descripcion correspondiente:
+
+{
+    "error": [
+        {
+            "timestamp": "ago 22, 2022 14:12:32 PM",
+            "codigo": 400,
+            "detail": "Formato de email invalido"
+        },
+        {
+            "timestamp": "ago 22, 2022 14:12:32 PM",
+            "codigo": 400,
+            "detail": "Formato de password invalido"
+        }
+    ]
+}
 
 En el header de cada peticion es importante definir la siguiente clave valor:
 content-type: application/json 
