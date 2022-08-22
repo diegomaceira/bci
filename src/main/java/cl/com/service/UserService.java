@@ -54,31 +54,11 @@ public class UserService {
 		user.setCreated(formatedDate);
 		user.setLastLogin(formatedDate);		
 		user.setIsActive(true);
-		user.setToken(jwtTokenUtil.generateToken(user.getName()));
+		//user.setToken(jwtTokenUtil.generateToken(user.getName()));
 		
 		userRepository.save(user);
 		
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
-	/*
-	void validate(String password) {
-	    //String minMaxLength = "/^[\s\S]{8,32}$/";
-	    String upper = "/[A-Z]/";
-	    String lower = "/[a-z]/";
-        String number = "/[0-9]/";
-	    String special = "/[^A-Za-z0-9]/";
-	    int count = 0;
-
-	    if (minMaxLength.test(password)) {
-	        // Only need 3 out of 4 of these to match
-	        if (upper.test(password)) count++;
-	        if (lower.test(password)) count++;
-	        if (number.test(password)) count++;
-	        if (special.test(password)) count++;
-	    }
-
-	    return count >= 3;
-	}
-	*/
 
 }

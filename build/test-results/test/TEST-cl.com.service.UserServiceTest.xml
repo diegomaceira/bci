@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="cl.com.service.UserServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-08-22T19:27:19" hostname="EZE1-LLN-B05105" time="0.174">
+<testsuite name="cl.com.service.UserServiceTest" tests="3" skipped="2" failures="0" errors="0" timestamp="2022-08-22T22:25:37" hostname="EZE1-LLN-B05105" time="0.131">
   <properties/>
-  <testcase name="testSave()" classname="cl.com.service.UserServiceTest" time="0.168"/>
-  <testcase name="testGetAllUser()" classname="cl.com.service.UserServiceTest" time="0.002"/>
-  <testcase name="testGetUserById()" classname="cl.com.service.UserServiceTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="testSave()" classname="cl.com.service.UserServiceTest" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="testGetAllUser()" classname="cl.com.service.UserServiceTest" time="0.128"/>
+  <testcase name="testGetUserById()" classname="cl.com.service.UserServiceTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[save user : 200 OK
+find: null
+find: []
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
