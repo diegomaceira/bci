@@ -47,9 +47,8 @@ public class UserService {
 		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(user.getEmail()).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de email invalido"));			
 		
 		//Password validation 
-		//if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(null, 403, "Formato de password invalido"));		
-		if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z]{1})(?=.*\\d)[A-Za-z\\d]{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de password invalido"));
-							
+		if(!Pattern.compile("(?=^(?:\\D*\\d\\D*){2}$)(?=^(?:[a-z0-9]*[A-Z][a-z0-9]*)$)^\\w{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de password invalido"));
+
 		if(errorDetail.size()>0)return ResponseEntity.ok(new cl.com.model.Error(errorDetail));
 			          	
 		user.setCreated(formatedDate);
