@@ -10,7 +10,7 @@ o HTTPS:
 	https://github.com/diegomaceira/bci.git
 	
 -una vez descargado el proyecto se importa a eclipse o intellij
-haciendo un import Existing gradle project.
+haciendo un import "Existing gradle project".
 
 -Una vez importado el proyecto, se tiene que correr los comando clean y luego build
 de gradle para que termine de descargar las dependencias.
