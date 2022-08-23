@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import cl.com.model.ErrorDetail;
@@ -49,16 +51,22 @@ public class UserService {
 		//Password validation 
 		if(!Pattern.compile("(?=^(?:\\D*\\d\\D*){2}$)(?=^(?:[a-z0-9]*[A-Z][a-z0-9]*)$)^\\w{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de password invalido"));
 
-		if(errorDetail.size()>0)return ResponseEntity.ok(new cl.com.model.Error(errorDetail));
+		if(errorDetail.size()>0)return ResponseEntity.badRequest().body(new cl.com.model.Error(errorDetail));
 			          	
 		user.setCreated(formatedDate);
 		user.setLastLogin(formatedDate);		
 		user.setIsActive(true);
 		user.setToken(jwtTokenUtil.generateToken(user.getName()));
+
+		String encoded = new BCryptPasswordEncoder().encode(user.getPassword());
+		
+		user.setPassword(encoded);
 		
 		userRepository.save(user);
 		
 		return ResponseEntity.ok(HttpStatus.OK);
 	}
 
+
+	
 }
