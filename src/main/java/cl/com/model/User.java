@@ -51,6 +51,14 @@ public class User {
 		this.phones = phones;
 	}
 	
+	public User(int id,String created, String lastLogin, String token, boolean isActive) {			
+		this.id = id;
+		this.created = created;
+		this.lastLogin = lastLogin;
+		this.token = token;		
+		this.isActive = isActive;
+	}
+	
 	public User(){
 		
 	}

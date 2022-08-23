@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -64,7 +62,7 @@ public class UserService {
 		
 		userRepository.save(user);
 		
-		return ResponseEntity.ok(HttpStatus.OK);
+		return ResponseEntity.ok(new User(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive()));
 	}
 
 
