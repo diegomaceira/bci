@@ -1,7 +1,6 @@
 package cl.com.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
@@ -65,17 +64,14 @@ public class UserServiceTest{
 	}
 		
 	@Test
-	@Disabled
 	void testGetAllUser() {
-		//fail("Not yet implemented");	
-
-		System.out.println("find: " +userService.getUserById(1).getBody());
+	
+		//when
+		userService.getAllUser();
 		
-		System.out.println("find: " +userService.getAllUser().getBody());
+		//then
+		verify(userRepository).findAll();
 		
-		//when(userRepository.findAll()).thenReturn(null);
-		//System.out.println("getall:" + userService.getAllUser());
-		assertEquals("c", "c");
 	}
 
 
