@@ -54,7 +54,7 @@ public class UserService {
 		user.setCreated(formatedDate);
 		user.setLastLogin(formatedDate);		
 		user.setIsActive(true);
-		//user.setToken(jwtTokenUtil.generateToken(user.getName()));
+		user.setToken(jwtTokenUtil.generateToken(user.getName()));
 		
 		userRepository.save(user);
 		
