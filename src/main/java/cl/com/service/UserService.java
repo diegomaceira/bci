@@ -11,12 +11,10 @@ import cl.com.dto.UserDTO;
 import cl.com.exception.InvalidDataException;
 import cl.com.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import cl.com.model.ErrorDetail;
-import cl.com.model.User;
+import cl.com.dto.ErrorDetailDTO;
 import cl.com.repository.UserRepository;
 import cl.com.security.JwtTokenUtil;
 
@@ -47,7 +45,7 @@ public class UserService {
 
 	public UserDTO save(UserDTO user) {
 				
-		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
+		List<ErrorDetailDTO> errorDetail = new ArrayList<ErrorDetailDTO>();
 		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
 
 		validateIfUserExist(errorDetail, user.getEmail(),formatedDate);
@@ -76,15 +74,15 @@ public class UserService {
 		return new UserDTO(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive());
 	}
 
-	public void validateIfUserExist(List<ErrorDetail> errorDetail,String email,String formatedDate){
-		if(userRepository.findByEmail(email)!=null)errorDetail.add(new ErrorDetail(formatedDate, 400, "Ya existe un usuario con ese email"));
+	public void validateIfUserExist(List<ErrorDetailDTO> errorDetail, String email, String formatedDate){
+		if(userRepository.findByEmail(email)!=null)errorDetail.add(new ErrorDetailDTO(formatedDate, 400, "Ya existe un usuario con ese email"));
 	}
-	public void validatePassword(List<ErrorDetail> errorDetail,String password,String formatedDate){
-		if(!Pattern.compile("(?=^(?:\\D*\\d\\D*){2}$)(?=^(?:[a-z0-9]*[A-Z][a-z0-9]*)$)^\\w{8,12}$").matcher(password).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de password invalido"));
+	public void validatePassword(List<ErrorDetailDTO> errorDetail, String password, String formatedDate){
+		if(!Pattern.compile("(?=^(?:\\D*\\d\\D*){2}$)(?=^(?:[a-z0-9]*[A-Z][a-z0-9]*)$)^\\w{8,12}$").matcher(password).matches()) errorDetail.add(new ErrorDetailDTO(formatedDate, 400, "Formato de password invalido"));
 	}
 
-	public void validateEmail(List<ErrorDetail> errorDetail,String email,String formatedDate){
-		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(email).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de email invalido"));
+	public void validateEmail(List<ErrorDetailDTO> errorDetail, String email, String formatedDate){
+		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(email).matches()) errorDetail.add(new ErrorDetailDTO(formatedDate, 400, "Formato de email invalido"));
 	}
 	
 }

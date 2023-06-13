@@ -41,7 +41,7 @@ public class User {
 	@Column
 	private Boolean isActive;
 		
-	@OneToMany(targetEntity=Telephone.class,cascade = CascadeType.ALL)  
+	@OneToMany(targetEntity= Telephone.class,cascade = CascadeType.ALL)
     private List<Telephone> phones;  
 	
 	public User(String name, String email, String password, List<Telephone> phones) {			
