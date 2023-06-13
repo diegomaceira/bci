@@ -1,24 +1,17 @@
 package cl.com.dto;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ErrorDTO {
-	public ErrorDTO(){}
 	private List<ErrorDetailDTO> errorDetail = new ArrayList<>();
-
-	public ErrorDTO(List<ErrorDetailDTO> error) {
-		this.errorDetail=error;
-	}
-
-	public List<ErrorDetailDTO> getErrorDetail() {
-		return errorDetail;
-	}
-	public void setErrorDetail(List<ErrorDetailDTO> errorDetail) {
-		this.errorDetail = errorDetail;
-	}
-
 	@Override
 	public String toString() {
 		return "{" +
