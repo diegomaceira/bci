@@ -25,17 +25,17 @@ public class UserService {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
-	public ResponseEntity<?> getAllUser() {
+	public List<User> getAllUser() {
 		List<User> users = new ArrayList<User>();
 		userRepository.findAll().forEach(user -> users.add(user));
-		return ResponseEntity.ok(users);
+		return users;
 	}
   
-	public ResponseEntity<?> getUserById(int id) {		
-		return ResponseEntity.ok(userRepository.findById(id));
+	public User getUserById(int id) {
+		return userRepository.findById(id);
 	}
 
-	public ResponseEntity<?> save(User user) {
+	public User save(User user) {
 				
 		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
 		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
@@ -49,7 +49,9 @@ public class UserService {
 		//Password validation 
 		if(!Pattern.compile("(?=^(?:\\D*\\d\\D*){2}$)(?=^(?:[a-z0-9]*[A-Z][a-z0-9]*)$)^\\w{8,12}$").matcher(user.getPassword()).matches()) errorDetail.add(new ErrorDetail(formatedDate, 400, "Formato de password invalido"));
 
-		if(errorDetail.size()>0)return ResponseEntity.badRequest().body(new cl.com.model.Error(errorDetail));
+		if(errorDetail.size()>0){
+			//return ResponseEntity.badRequest().body(new cl.com.model.Error(errorDetail));
+		}
 			          	
 		user.setCreated(formatedDate);
 		user.setLastLogin(formatedDate);		
@@ -62,7 +64,7 @@ public class UserService {
 		
 		userRepository.save(user);
 		
-		return ResponseEntity.ok(new User(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive()));
+		return new User(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive());
 	}
 
 

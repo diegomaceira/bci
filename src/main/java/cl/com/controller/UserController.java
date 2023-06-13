@@ -19,16 +19,16 @@ public class UserController {
 
 	@GetMapping(path= "/login" , consumes = "application/json", produces = "application/json" )
 	private ResponseEntity<?> getAllUsers() {
-		return userService.getAllUser();
+		return ResponseEntity.ok(userService.getAllUser());
 	}
 
 	@GetMapping(path="/login/{id}", consumes = "application/json", produces = "application/json" )
 	private ResponseEntity<?> getUser(@PathVariable("id") int id) {
-		return userService.getUserById(id);
+		return ResponseEntity.ok(userService.getUserById(id));
 	}
 
 	@PostMapping(path="/sign-up", consumes = "application/json", produces = "application/json" )
-	private ResponseEntity<?> saveUser(@RequestBody User user) {		
-		return userService.save(user);
+	private ResponseEntity<?> saveUser(@RequestBody User user) {
+		return ResponseEntity.ok(userService.save(user));
 	}
 }

@@ -1,0 +1,4 @@
+cl/com/bci/BciApplicationTest.java
+ cl.com.bci.BciApplicationTest
+cl/com/service/UserServiceTest.java
+ cl.com.service.UserServiceTest
