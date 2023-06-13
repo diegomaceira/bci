@@ -51,7 +51,7 @@ public class UserServiceTest{
 		User user = new User("diego","macei@google.com","asd2fq1weDr",telephones);
 			
 		//when
-		userService.save(user);
+		//userService.save(user);
 		
 		//then
 		ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import cl.com.dto.UserDTO;
+import cl.com.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,18 +27,25 @@ public class UserService {
   
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
-	
-	public List<User> getAllUser() {
-		List<User> users = new ArrayList<User>();
-		userRepository.findAll().forEach(user -> users.add(user));
-		return users;
-	}
-  
-	public User getUserById(int id) {
-		return userRepository.findById(id);
+
+	@Autowired
+	private UserMapper userMapper;
+
+	public UserService() {
 	}
 
-	public User save(User user) {
+	public List<UserDTO> getAllUser() {
+		return userRepository.findAll().stream().map(
+				user-> userMapper.convertUserToUserDTO(user)
+		).collect(Collectors.toList());
+	}
+  
+	public UserDTO getUserById(int id) {
+		User user = userRepository.findById(id);
+		return userMapper.convertUserToUserDTO(user);
+	}
+
+	public UserDTO save(UserDTO user) {
 				
 		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
 		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
@@ -62,11 +72,20 @@ public class UserService {
 		
 		user.setPassword(encoded);
 		
-		userRepository.save(user);
+		userRepository.save(userMapper.convertUserDTOToUser(user));
 		
-		return new User(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive());
+		return new UserDTO(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive());
 	}
 
+	public void validateUser(List<ErrorDetail> errorDetail){
 
+	}
+	public void validatePassword(List<ErrorDetail> errorDetail){
+
+	}
+
+	public void validateEmail(List<ErrorDetail> errorDetail){
+
+	}
 	
 }

@@ -1,3 +1,5 @@
+cl/com/dto/UserDTO.java
+ cl.com.dto.UserDTO
 cl/com/configuration/SecurityConfig.java
  cl.com.configuration.SecurityConfig
 cl/com/bci/BciApplication.java
