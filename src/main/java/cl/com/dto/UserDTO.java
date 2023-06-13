@@ -3,6 +3,7 @@ package cl.com.dto;
 import cl.com.model.Telephone;
 
 import java.util.List;
+import java.util.Set;
 
 
 public class UserDTO {
@@ -31,9 +32,9 @@ public class UserDTO {
 
 	private Boolean isActive;
 		
-	private List<Telephone> phones;
+	private Set<Telephone> phones;
 	
-	public UserDTO(String name, String email, String password, List<Telephone> phones) {
+	public UserDTO(String name, String email, String password, Set<Telephone> phones) {
 		this.name = name;
 		this.email = email;
 		this.password = password;		
@@ -84,11 +85,11 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public List<Telephone> getPhones() {
+	public Set<Telephone> getPhones() {
 		return phones;
 	}
 
-	public void setPhones(List<Telephone> phones) {
+	public void setPhones(Set<Telephone> phones) {
 		this.phones = phones;
 	}
 	

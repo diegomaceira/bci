@@ -1,6 +1,7 @@
 package cl.com.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,9 +43,9 @@ public class User {
 	private Boolean isActive;
 		
 	@OneToMany(targetEntity= Telephone.class,cascade = CascadeType.ALL)
-    private List<Telephone> phones;  
+    private Set<Telephone> phones;
 	
-	public User(String name, String email, String password, List<Telephone> phones) {			
+	public User(String name, String email, String password, Set<Telephone> phones) {
 		this.name = name;
 		this.email = email;
 		this.password = password;		
@@ -95,11 +96,11 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Telephone> getPhones() {
+	public Set<Telephone> getPhones() {
 		return phones;
 	}
 
-	public void setPhones(List<Telephone> phones) {
+	public void setPhones(Set<Telephone> phones) {
 		this.phones = phones;
 	}
 	
