@@ -8,19 +8,19 @@ cl/com/repository/UserRepository.java
  cl.com.repository.UserRepository
 cl/com/mapper/UserMapper.java
  cl.com.mapper.UserMapper
-cl/com/dto/ErrorDetailDTO.java
- cl.com.dto.ErrorDetailDTO
-cl/com/service/UserService.java
- cl.com.service.UserService
-cl/com/model/Error.java
- cl.com.model.Error
+cl/com/model/Telephone.java
+ cl.com.model.Telephone
+cl/com/controller/UserController.java
+ cl.com.controller.UserController
+cl/com/security/JwtTokenUtil.java
+ cl.com.security.JwtTokenUtil
 cl/com/model/User.java
  cl.com.model.User
 cl/com/exception/InvalidDataException.java
  cl.com.exception.InvalidDataException
-cl/com/controller/UserController.java
- cl.com.controller.UserController
-cl/com/model/Telephone.java
- cl.com.model.Telephone
-cl/com/security/JwtTokenUtil.java
- cl.com.security.JwtTokenUtil
+cl/com/dto/ErrorDTO.java
+ cl.com.dto.ErrorDTO
+cl/com/service/UserService.java
+ cl.com.service.UserService
+cl/com/dto/ErrorDetailDTO.java
+ cl.com.dto.ErrorDetailDTO

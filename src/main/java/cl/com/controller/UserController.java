@@ -33,7 +33,13 @@ public class UserController {
 	}
 
 	@PostMapping(path="/sign-up", consumes = "application/json", produces = "application/json" )
-	private ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO user) {
-		return ResponseEntity.ok(userService.save(user));
+	private ResponseEntity saveUser(@RequestBody UserDTO user) {
+
+		try{
+			return ResponseEntity.ok(userService.save(user));
+		}catch (Exception e){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+
 	}
 }

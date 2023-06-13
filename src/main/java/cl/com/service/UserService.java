@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import cl.com.dto.ErrorDTO;
 import cl.com.dto.UserDTO;
 import cl.com.exception.InvalidDataException;
 import cl.com.mapper.UserMapper;
@@ -44,20 +45,19 @@ public class UserService {
 	}
 
 	public UserDTO save(UserDTO user) {
-				
-		List<ErrorDetailDTO> errorDetail = new ArrayList<ErrorDetailDTO>();
+
+		ErrorDTO error = new ErrorDTO();
+
 		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
 
-		validateIfUserExist(errorDetail, user.getEmail(),formatedDate);
+		validateIfUserExist(error.getErrorDetail(), user.getEmail(),formatedDate);
 
-		validateEmail( errorDetail, user.getEmail(), formatedDate);
+		validateEmail( error.getErrorDetail(), user.getEmail(), formatedDate);
 
-		validatePassword(errorDetail, user.getPassword(), formatedDate);
+		validatePassword(error.getErrorDetail(), user.getPassword(), formatedDate);
 
-		if(errorDetail.size()>0){
-			//return ResponseEntity.badRequest().body(new cl.com.model.Error(errorDetail));
-			System.out.println(errorDetail.toString());
-			throw new InvalidDataException("Detalle error");
+		if(error.getErrorDetail().size()>0){
+			throw new InvalidDataException(error.toString());
 		}
 			          	
 		user.setCreated(formatedDate);
