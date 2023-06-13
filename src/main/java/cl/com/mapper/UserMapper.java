@@ -2,7 +2,9 @@ package cl.com.mapper;
 
 import cl.com.dto.UserDTO;
 import cl.com.model.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public UserDTO convertUserToUserDTO(User user){

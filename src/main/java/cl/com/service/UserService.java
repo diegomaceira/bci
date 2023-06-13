@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import cl.com.dto.UserDTO;
+import cl.com.exception.InvalidDataException;
 import cl.com.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,7 @@ public class UserService {
 	}
   
 	public UserDTO getUserById(int id) {
-		User user = userRepository.findById(id);
-		return userMapper.convertUserToUserDTO(user);
+		return userMapper.convertUserToUserDTO(userRepository.findById(id));
 	}
 
 	public UserDTO save(UserDTO user) {
@@ -50,7 +50,7 @@ public class UserService {
 		List<ErrorDetail> errorDetail = new ArrayList<ErrorDetail>();
 		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
 
-		validateUser(errorDetail, user.getEmail(),formatedDate);
+		validateIfUserExist(errorDetail, user.getEmail(),formatedDate);
 
 		validateEmail( errorDetail, user.getEmail(), formatedDate);
 
@@ -58,7 +58,8 @@ public class UserService {
 
 		if(errorDetail.size()>0){
 			//return ResponseEntity.badRequest().body(new cl.com.model.Error(errorDetail));
-			throw new RuntimeException(errorDetail.toString());
+			System.out.println(errorDetail.toString());
+			throw new InvalidDataException("Detalle error");
 		}
 			          	
 		user.setCreated(formatedDate);
@@ -75,7 +76,7 @@ public class UserService {
 		return new UserDTO(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive());
 	}
 
-	public void validateUser(List<ErrorDetail> errorDetail,String email,String formatedDate){
+	public void validateIfUserExist(List<ErrorDetail> errorDetail,String email,String formatedDate){
 		if(userRepository.findByEmail(email)!=null)errorDetail.add(new ErrorDetail(formatedDate, 400, "Ya existe un usuario con ese email"));
 	}
 	public void validatePassword(List<ErrorDetail> errorDetail,String password,String formatedDate){
