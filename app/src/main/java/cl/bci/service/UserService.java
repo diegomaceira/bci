@@ -48,7 +48,6 @@ public class UserService {
 	public UserDTO save(UserDTO userDto) {
 
 		ErrorDTO error = new ErrorDTO();
-
 		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
 
 		validateIfUserExist(error.getErrorDetail(), userDto.getEmail(),formatedDate);
@@ -65,10 +64,7 @@ public class UserService {
 		userDto.setLastLogin(formatedDate);
 		userDto.setIsActive(true);
 		userDto.setToken(jwtTokenUtil.generateToken(userDto.getName()));
-
-		String encoded = new BCryptPasswordEncoder().encode(userDto.getPassword());
-
-		userDto.setPassword(encoded);
+		userDto.setPassword(generateEncondedPassword(userDto.getPassword()));
 		
 		userRepository.save(userMapper.convertUserDTOToUser(userDto));
 		
@@ -81,9 +77,11 @@ public class UserService {
 	public void validatePassword(List<ErrorDetailDTO> errorDetail, String password, String formatedDate){
 		if(!Pattern.compile("(?=^(?:\\D*\\d\\D*){2}$)(?=^(?:[a-z0-9]*[A-Z][a-z0-9]*)$)^\\w{8,12}$").matcher(password).matches()) errorDetail.add(new ErrorDetailDTO(formatedDate, 400, "Formato de password invalido"));
 	}
-
 	public void validateEmail(List<ErrorDetailDTO> errorDetail, String email, String formatedDate){
 		if(!Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").matcher(email).matches()) errorDetail.add(new ErrorDetailDTO(formatedDate, 400, "Formato de email invalido"));
 	}
-	
+	public String generateEncondedPassword(String password){
+		return new BCryptPasswordEncoder().encode(password);
+	}
+
 }
