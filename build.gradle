@@ -1,35 +1,4 @@
-plugins {
-	id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
-	id 'java'
-	id 'groovy'
-}
-
-group = 'cl.com'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-repositories {
-	mavenCentral()
-}
-
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'	
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-test'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	compileOnly 'org.projectlombok:lombok:1.18.28'
-	implementation 'io.jsonwebtoken:jjwt:0.9.1'	
-	testImplementation 'org.dbunit:dbunit:2.7.3'
-	
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
-
-    
+/*
+ * Copyright (c) Banco Crédito e Inversiones BCI. Todos los derechos reservados.
+ */
+evaluationDependsOn(':app')
