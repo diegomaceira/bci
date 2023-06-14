@@ -1,7 +1,7 @@
 package cl.bci.controller
 
+import cl.bci.dto.TelephoneDTO
 import cl.bci.dto.UserDTO
-import cl.bci.model.Telephone
 import cl.bci.service.UserService
 import spock.lang.Specification
 
@@ -19,7 +19,7 @@ class UserControllerSpec extends Specification{
 
         given: "La siguiente configuracion"
         List<UserDTO> users = new ArrayList<>();
-        Set<Telephone> telephones = new ArrayList<>();
+        Set<TelephoneDTO> telephones = new ArrayList<>();
         telephones.add("1234-5678")
         users.add(new UserDTO("diego","diego@maceira.com","Password123",telephones))
 
@@ -35,7 +35,7 @@ class UserControllerSpec extends Specification{
     def "Ejecucion endpoint /login/{id}"(){
 
         given: "La siguiente configuracion"
-        Set<Telephone> telephones = new ArrayList<>();
+        Set<TelephoneDTO> telephones = new ArrayList<>();
         telephones.add("1234-5678")
         UserDTO user = new UserDTO(1,"diego","diego@maceira.com","Password123",telephones)
 
@@ -51,7 +51,7 @@ class UserControllerSpec extends Specification{
     def "Ejecucion endpoint /sign-up"(){
 
         given: "La siguiente configuracion"
-        Set<Telephone> telephones = new ArrayList<>();
+        Set<TelephoneDTO> telephones = new ArrayList<>();
         telephones.add("1234-5678")
         UserDTO user = new UserDTO(1,"diego","diego@maceira.com","Password123",telephones)
 

@@ -1,6 +1,7 @@
 package cl.bci.model;
 
 
+import cl.bci.dto.TelephoneDTO;
 import lombok.*;
 
 import java.util.Set;
@@ -49,6 +50,14 @@ public class User {
 		
 	@OneToMany(targetEntity= Telephone.class,cascade = CascadeType.ALL)
     private Set<Telephone> phones;
+
+	public User(int id,String name, String email, String password, Set<Telephone> phones) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.phones = phones;
+	}
 
 }
 
