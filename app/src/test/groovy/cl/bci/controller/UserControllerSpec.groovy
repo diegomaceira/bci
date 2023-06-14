@@ -2,7 +2,8 @@ package cl.bci.controller
 
 import cl.bci.dto.TelephoneDTO
 import cl.bci.dto.UserDTO
-import cl.bci.service.UserService
+import cl.bci.model.User
+import cl.bci.service.UserServiceImpl
 import spock.lang.Specification
 
 class UserControllerSpec extends Specification{
@@ -11,7 +12,7 @@ class UserControllerSpec extends Specification{
     def userService
 
     def setup(){
-        userService = Mock(UserService)
+        userService = Mock(UserServiceImpl)
         controller = new UserController(userService)
     }
 
@@ -21,7 +22,8 @@ class UserControllerSpec extends Specification{
         List<UserDTO> users = new ArrayList<>();
         Set<TelephoneDTO> telephones = new ArrayList<>();
         telephones.add("1234-5678")
-        users.add(new UserDTO("diego","diego@maceira.com","Password123",telephones))
+        UserDTO userDto = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
+        users.add(userDto)
 
         userService.getAllUser() >> users
 
@@ -37,9 +39,9 @@ class UserControllerSpec extends Specification{
         given: "La siguiente configuracion"
         Set<TelephoneDTO> telephones = new ArrayList<>();
         telephones.add("1234-5678")
-        UserDTO user = new UserDTO(1,"diego","diego@maceira.com","Password123",telephones)
+        UserDTO userDto = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
 
-        userService.getUserById(1) >> user
+        userService.getUserById(1) >> userDto
 
         when: "se ejecuta getUser"
         def respuesta = controller.getUser(1)
@@ -53,7 +55,7 @@ class UserControllerSpec extends Specification{
         given: "La siguiente configuracion"
         Set<TelephoneDTO> telephones = new ArrayList<>();
         telephones.add("1234-5678")
-        UserDTO user = new UserDTO(1,"diego","diego@maceira.com","Password123",telephones)
+        UserDTO user = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
 
         userService.save(_) >> user
 

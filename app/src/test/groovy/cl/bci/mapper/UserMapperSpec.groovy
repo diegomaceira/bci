@@ -19,7 +19,7 @@ class UserMapperSpec extends Specification{
         given: "La siguiente configuracion"
         Set<Telephone> telephones = new ArrayList<>();
         telephones.add(new Telephone(1,1234,1,"ARG"))
-        User userModel = new User(1,"diego","diego@maceira.com","Password123",telephones)
+        User userModel = User.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
 
         when: "se ejecuta convertUserToUserDTO"
         def respuesta = mapper.convertUserToUserDTO(userModel)
@@ -33,7 +33,7 @@ class UserMapperSpec extends Specification{
         given: "La siguiente configuracion"
         Set<TelephoneDTO> telephones = new ArrayList<>();
         telephones.add(new TelephoneDTO(1,1234,1,"ARG"))
-        UserDTO userDto = new UserDTO(1,"diego","diego@maceira.com","Password123",telephones)
+        UserDTO userDto = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
 
         when: "se ejecuta convertUserDTOToUser"
         def respuesta = mapper.convertUserDTOToUser(userDto)

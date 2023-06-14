@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import cl.bci.service.UserService;
+import cl.bci.service.UserServiceImpl;
 
 import java.util.List;
 
@@ -18,27 +18,27 @@ import java.util.List;
 public class UserController {
   
 	@Autowired
-	UserService userService;
+	UserServiceImpl userServiceImpl;
 
-	public UserController(UserService userService) {
-		this.userService = userService;
+	public UserController(UserServiceImpl userServiceImpl) {
+		this.userServiceImpl = userServiceImpl;
 	}
 
 	@GetMapping(path= "/login" , consumes = "application/json", produces = "application/json" )
 	private ResponseEntity<List<UserDTO>> getAllUsers() {
-		return ResponseEntity.ok(userService.getAllUser());
+		return ResponseEntity.ok(userServiceImpl.getAllUser());
 	}
 
 	@GetMapping(path="/login/{id}", consumes = "application/json", produces = "application/json" )
 	private ResponseEntity<UserDTO> getUser(@PathVariable("id") int id) {
-		return ResponseEntity.ok(userService.getUserById(id));
+		return ResponseEntity.ok(userServiceImpl.getUserById(id));
 	}
 
 	@PostMapping(path="/sign-up", consumes = "application/json", produces = "application/json" )
 	private ResponseEntity saveUser(@RequestBody UserDTO user) {
 
 		try{
-			return ResponseEntity.ok(userService.save(user));
+			return ResponseEntity.ok(userServiceImpl.save(user));
 		}catch (Exception e){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}

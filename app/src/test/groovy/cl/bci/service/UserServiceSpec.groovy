@@ -22,7 +22,7 @@ class UserServiceSpec extends Specification{
 
     def setup(){
 
-        service = new UserService(
+        service = new UserServiceImpl(
                 userRepository,
                 jwtTokenUtil,
                 userMapper
@@ -34,11 +34,11 @@ class UserServiceSpec extends Specification{
         given: "La siguiente configuracion"
         Set<Telephone> telephones = new ArrayList<>();
         telephones.add(new Telephone(1,1234,1,"ARG"))
-        User userModel = new User(1,"diego","diego@maceira.com","Password123",telephones)
+        User userModel = User.builder().id(1).name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
 
         Set<TelephoneDTO> telephonesDto = new ArrayList<>();
         telephonesDto.add(new TelephoneDTO(1,1234,1,"ARG"))
-        UserDTO userDto = new UserDTO(1,"diego","diego@maceira.com","Password123",telephonesDto)
+        UserDTO userDto = UserDTO.builder().id(1).name("diego").email("diego@maceira.com").password("asd2fq1weDr").phones(telephonesDto).build();
 
         userRepository.findById(1) >> userModel
         userMapper.convertUserToUserDTO(userModel) >> userDto
@@ -55,7 +55,7 @@ class UserServiceSpec extends Specification{
         given: "La siguiente configuracion"
         Set<TelephoneDTO> telephonesDto = new ArrayList<>();
         telephonesDto.add(new TelephoneDTO(1,1234,1,"ARG"))
-        UserDTO userDto = new UserDTO(1,"diego","diego@maceira.com","asd2fq1weDr",telephonesDto)
+        UserDTO userDto = UserDTO.builder().id(1).name("diego").email("diego@maceira.com").password("asd2fq1weDr").phones(telephonesDto).build();
 
         when: "se ejecuta save"
         def respuesta = service.save(userDto)

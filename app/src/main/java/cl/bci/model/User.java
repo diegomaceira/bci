@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {

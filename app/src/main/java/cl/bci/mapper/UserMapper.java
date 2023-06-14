@@ -6,7 +6,6 @@ import cl.bci.model.Telephone;
 import cl.bci.model.User;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,53 +13,26 @@ import java.util.Set;
 public class UserMapper {
 
     public UserDTO convertUserToUserDTO(User user){
-        UserDTO userDto = new UserDTO();
-        userDto.setCreated(user.getCreated());
-        userDto.setId(user.getId());
-        userDto.setPassword(user.getPassword());
-        userDto.setEmail(user.getEmail());
-        userDto.setLastLogin(user.getLastLogin());
-        userDto.setIsActive(user.getIsActive());
-        userDto.setToken(user.getToken());
-        userDto.setName(user.getName());
 
         Set<TelephoneDTO> telephones = new HashSet<>();
         for (Telephone telephone:user.getPhones()) {
-            TelephoneDTO teleDto = new TelephoneDTO();
-            teleDto.setId(telephone.getId());
-            teleDto.setContrycode(telephone.getContrycode());
-            teleDto.setNumber(telephone.getNumber());
-            teleDto.setCitycode(telephone.getCitycode());
-            telephones.add(teleDto);
+            TelephoneDTO phone = new TelephoneDTO(telephone.getId(),telephone.getNumber(),telephone.getCitycode(),telephone.getContrycode());
+            telephones.add(phone);
         }
-        userDto.setPhones(telephones);
 
-        return userDto;
+        return UserDTO.builder().created(user.getCreated()).id(user.getId()).password(user.getPassword()).email(user.getEmail()).lastLogin(user.getLastLogin()).isActive(user.getIsActive()).token(user.getToken()).name(user.getName()).phones(telephones).build();
+
     }
 
     public User convertUserDTOToUser(UserDTO userDTO){
-        User user = new User();
-        user.setCreated(userDTO.getCreated());
-        user.setId(userDTO.getId());
-        user.setPassword(userDTO.getPassword());
-        user.setEmail(userDTO.getEmail());
-        user.setLastLogin(userDTO.getLastLogin());
-        user.setIsActive(userDTO.getIsActive());
-        user.setToken(userDTO.getToken());
-        user.setName(userDTO.getName());
 
         Set<Telephone> telephones = new HashSet<>();
         for (TelephoneDTO telephone:userDTO.getPhones()) {
-            Telephone teleDto = new Telephone();
-            teleDto.setId(telephone.getId());
-            teleDto.setContrycode(telephone.getContrycode());
-            teleDto.setNumber(telephone.getNumber());
-            teleDto.setCitycode(telephone.getCitycode());
-            telephones.add(teleDto);
+            Telephone phone = new Telephone(telephone.getId(),telephone.getNumber(),telephone.getCitycode(),telephone.getContrycode());
+            telephones.add(phone);
         }
-        user.setPhones(telephones);
 
-        return user;
+        return User.builder().created(userDTO.getCreated()).id(userDTO.getId()).password(userDTO.getPassword()).email(userDTO.getEmail()).lastLogin(userDTO.getLastLogin()).isActive(userDTO.getIsActive()).token(userDTO.getToken()).name(userDTO.getName()).phones(telephones).build();
     }
 
 }
