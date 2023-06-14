@@ -1,5 +1,6 @@
 package cl.bci.service
 
+import cl.bci.dto.ErrorDTO
 import cl.bci.dto.TelephoneDTO
 import cl.bci.dto.UserDTO
 import cl.bci.mapper.UserMapper
@@ -8,6 +9,8 @@ import cl.bci.model.User
 import cl.bci.repository.UserRepository
 import cl.bci.security.JwtTokenUtil
 import spock.lang.Specification
+
+import java.text.SimpleDateFormat
 
 
 class UserServiceSpec extends Specification{
@@ -59,6 +62,32 @@ class UserServiceSpec extends Specification{
 
         then: "Se obtiene mensaje de status ok"
         assert respuesta != null
+    }
+
+    def "Ejecucion metodo validar email"(){
+
+        given: "La siguiente configuracion"
+        ErrorDTO error = new ErrorDTO();
+        String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
+
+        when: "se ejecuta validateEmail"
+        def respuesta = service.validateEmail(error.getErrorDetail(),"diego@maceira.com",formatedDate)
+
+        then: "Si la lista de errores tiene 0 errores es que el mail era valido"
+        assert error.getErrorDetail().size()==0
+    }
+
+    def "Ejecucion metodo validar password"(){
+
+        given: "La siguiente configuracion"
+        ErrorDTO error = new ErrorDTO();
+        String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
+
+        when: "se ejecuta validatePassword"
+        def respuesta = service.validatePassword(error.getErrorDetail(),"asd2fq1weDr",formatedDate)
+
+        then: "Si la lista de errores tiene 0 errores es que el mail era valido"
+        assert error.getErrorDetail().size()==0
     }
 
 }
