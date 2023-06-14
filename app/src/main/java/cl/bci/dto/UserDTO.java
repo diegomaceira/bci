@@ -1,5 +1,4 @@
 package cl.bci.dto;
-import cl.bci.model.Telephone;
 import lombok.Data;
 import java.util.Set;
 
@@ -13,15 +12,15 @@ public class UserDTO {
 	private String lastLogin;
 	private String token;
 	private Boolean isActive;
-	private Set<Telephone> phones;
-	public UserDTO(String name, String email, String password, Set<Telephone> phones) {
+	private Set<TelephoneDTO> phones;
+	public UserDTO(String name, String email, String password, Set<TelephoneDTO> phones) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phones = phones;
 	}
 
-	public UserDTO(int id,String name, String email, String password, Set<Telephone> phones) {
+	public UserDTO(int id,String name, String email, String password, Set<TelephoneDTO> phones) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
