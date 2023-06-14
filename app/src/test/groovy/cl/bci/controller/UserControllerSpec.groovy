@@ -32,4 +32,36 @@ class UserControllerSpec extends Specification{
         assert respuesta.getStatusCodeValue() == 200
     }
 
+    def "Ejecucion endpoint /login/{id}"(){
+
+        given: "La siguiente configuracion"
+        Set<Telephone> telephones = new ArrayList<>();
+        telephones.add("1234-5678")
+        UserDTO user = new UserDTO(1,"diego","diego@maceira.com","Password123",telephones)
+
+        userService.getUserById(1) >> user
+
+        when: "se ejecuta getUser"
+        def respuesta = controller.getUser(1)
+
+        then: "Se obtiene mensaje de status ok"
+        assert respuesta.getStatusCodeValue() == 200
+    }
+
+    def "Ejecucion endpoint /sign-up"(){
+
+        given: "La siguiente configuracion"
+        Set<Telephone> telephones = new ArrayList<>();
+        telephones.add("1234-5678")
+        UserDTO user = new UserDTO(1,"diego","diego@maceira.com","Password123",telephones)
+
+        userService.save(_) >> user
+
+        when: "se ejecuta saveUser"
+        def respuesta = controller.saveUser(user)
+
+        then: "Se obtiene mensaje de status ok"
+        assert respuesta.getStatusCodeValue() == 200
+    }
+
 }

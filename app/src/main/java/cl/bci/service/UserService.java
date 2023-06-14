@@ -29,7 +29,10 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 
-	public UserService() {
+	public UserService(UserRepository userRepository,JwtTokenUtil jwtTokenUtil,UserMapper userMapper) {
+		this.userRepository=userRepository;
+		this.jwtTokenUtil=jwtTokenUtil;
+		this.userMapper=userMapper;
 	}
 
 	public List<UserDTO> getAllUser() {
