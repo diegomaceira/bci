@@ -45,34 +45,34 @@ public class UserService {
 		return userMapper.convertUserToUserDTO(userRepository.findById(id));
 	}
 
-	public UserDTO save(UserDTO user) {
+	public UserDTO save(UserDTO userDto) {
 
 		ErrorDTO error = new ErrorDTO();
 
 		String formatedDate = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a").format(new Date());
 
-		validateIfUserExist(error.getErrorDetail(), user.getEmail(),formatedDate);
+		validateIfUserExist(error.getErrorDetail(), userDto.getEmail(),formatedDate);
 
-		validateEmail( error.getErrorDetail(), user.getEmail(), formatedDate);
+		validateEmail( error.getErrorDetail(), userDto.getEmail(), formatedDate);
 
-		validatePassword(error.getErrorDetail(), user.getPassword(), formatedDate);
+		validatePassword(error.getErrorDetail(), userDto.getPassword(), formatedDate);
 
 		if(error.getErrorDetail().size()>0){
 			throw new InvalidDataException(error.toString());
 		}
-			          	
-		user.setCreated(formatedDate);
-		user.setLastLogin(formatedDate);
-		user.setIsActive(true);
-		user.setToken(jwtTokenUtil.generateToken(user.getName()));
 
-		String encoded = new BCryptPasswordEncoder().encode(user.getPassword());
+		userDto.setCreated(formatedDate);
+		userDto.setLastLogin(formatedDate);
+		userDto.setIsActive(true);
+		userDto.setToken(jwtTokenUtil.generateToken(userDto.getName()));
+
+		String encoded = new BCryptPasswordEncoder().encode(userDto.getPassword());
+
+		userDto.setPassword(encoded);
 		
-		user.setPassword(encoded);
+		userRepository.save(userMapper.convertUserDTOToUser(userDto));
 		
-		userRepository.save(userMapper.convertUserDTOToUser(user));
-		
-		return new UserDTO(user.getId(),user.getCreated(),user.getLastLogin(),user.getToken(),user.getIsActive());
+		return new UserDTO(userDto.getId(),userDto.getCreated(),userDto.getLastLogin(),userDto.getToken(),userDto.getIsActive());
 	}
 
 	public void validateIfUserExist(List<ErrorDetailDTO> errorDetail, String email, String formatedDate){
