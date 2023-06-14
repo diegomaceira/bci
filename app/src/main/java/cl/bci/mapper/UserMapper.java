@@ -31,6 +31,7 @@ public class UserMapper {
             teleDto.setContrycode(telephone.getContrycode());
             teleDto.setNumber(telephone.getNumber());
             teleDto.setCitycode(telephone.getCitycode());
+            telephones.add(teleDto);
         }
         userDto.setPhones(telephones);
 
@@ -55,6 +56,7 @@ public class UserMapper {
             teleDto.setContrycode(telephone.getContrycode());
             teleDto.setNumber(telephone.getNumber());
             teleDto.setCitycode(telephone.getCitycode());
+            telephones.add(teleDto);
         }
         user.setPhones(telephones);
 
