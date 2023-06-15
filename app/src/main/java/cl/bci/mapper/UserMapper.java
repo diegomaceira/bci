@@ -12,11 +12,11 @@ import java.util.Set;
 @Component
 public class UserMapper {
 
-    public UserDTO convertUserToUserDTO(User user){
+    public UserDTO convertUserToUserDTO(User user) {
 
         Set<TelephoneDTO> telephones = new HashSet<>();
-        for (Telephone telephone:user.getPhones()) {
-            TelephoneDTO phone = new TelephoneDTO(telephone.getId(),telephone.getNumber(),telephone.getCitycode(),telephone.getContrycode());
+        for (Telephone telephone : user.getPhones()) {
+            TelephoneDTO phone = new TelephoneDTO(telephone.getId(), telephone.getNumber(), telephone.getCitycode(), telephone.getContrycode());
             telephones.add(phone);
         }
 
@@ -24,11 +24,11 @@ public class UserMapper {
 
     }
 
-    public User convertUserDTOToUser(UserDTO userDTO){
+    public User convertUserDTOToUser(UserDTO userDTO) {
 
         Set<Telephone> telephones = new HashSet<>();
-        for (TelephoneDTO telephone:userDTO.getPhones()) {
-            Telephone phone = new Telephone(telephone.getId(),telephone.getNumber(),telephone.getCitycode(),telephone.getContrycode());
+        for (TelephoneDTO telephone : userDTO.getPhones()) {
+            Telephone phone = new Telephone(telephone.getId(), telephone.getNumber(), telephone.getCitycode(), telephone.getContrycode());
             telephones.add(phone);
         }
 

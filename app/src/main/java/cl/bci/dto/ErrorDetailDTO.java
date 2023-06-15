@@ -9,16 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ErrorDetailDTO {
 
-	private String timestamp;
-	private int codigo;
-	private String detail;
+    private String timestamp;
+    private int codigo;
+    private String detail;
 
-	@Override
-	public String toString() {
-		return "{" +
-				"\"timestamp\":" + "\"" + timestamp + "\"," +
-				"\"codigo\":" + codigo + "," +
-				"\"detail\":" + "\"" + detail + "\"" +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "{" +
+                "\"timestamp\":" + "\"" + timestamp + "\"," +
+                "\"codigo\":" + codigo + "," +
+                "\"detail\":" + "\"" + detail + "\"" +
+                '}';
+    }
 }

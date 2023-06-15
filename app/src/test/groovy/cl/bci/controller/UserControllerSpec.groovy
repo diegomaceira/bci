@@ -2,27 +2,26 @@ package cl.bci.controller
 
 import cl.bci.dto.TelephoneDTO
 import cl.bci.dto.UserDTO
-import cl.bci.model.User
 import cl.bci.service.UserServiceImpl
 import spock.lang.Specification
 
-class UserControllerSpec extends Specification{
+class UserControllerSpec extends Specification {
 
     def controller
     def userService
 
-    def setup(){
+    def setup() {
         userService = Mock(UserServiceImpl)
         controller = new UserController(userService)
     }
 
-    def "Ejecucion endpoint /login"(){
+    def "Ejecucion endpoint /login"() {
 
         given: "La siguiente configuracion"
-        List<UserDTO> users = new ArrayList<>();
-        Set<TelephoneDTO> telephones = new ArrayList<>();
+        List<UserDTO> users = new ArrayList<>()
+        Set<TelephoneDTO> telephones = new ArrayList<>()
         telephones.add("1234-5678")
-        UserDTO userDto = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
+        UserDTO userDto = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build()
         users.add(userDto)
 
         userService.getAllUser() >> users
@@ -34,12 +33,12 @@ class UserControllerSpec extends Specification{
         assert respuesta.getStatusCodeValue() == 200
     }
 
-    def "Ejecucion endpoint /login/{id}"(){
+    def "Ejecucion endpoint /login/{id}"() {
 
         given: "La siguiente configuracion"
-        Set<TelephoneDTO> telephones = new ArrayList<>();
+        Set<TelephoneDTO> telephones = new ArrayList<>()
         telephones.add("1234-5678")
-        UserDTO userDto = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
+        UserDTO userDto = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build()
 
         userService.getUserById(1) >> userDto
 
@@ -50,12 +49,12 @@ class UserControllerSpec extends Specification{
         assert respuesta.getStatusCodeValue() == 200
     }
 
-    def "Ejecucion endpoint /sign-up"(){
+    def "Ejecucion endpoint /sign-up"() {
 
         given: "La siguiente configuracion"
-        Set<TelephoneDTO> telephones = new ArrayList<>();
+        Set<TelephoneDTO> telephones = new ArrayList<>()
         telephones.add("1234-5678")
-        UserDTO user = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build();
+        UserDTO user = UserDTO.builder().name("diego").email("diego@maceira.com").password("Password123").phones(telephones).build()
 
         userService.save(_) >> user
 

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TelephoneDTO {
-	private int id;
-	private long number;
-	private int citycode;
-	private String contrycode;
+    private int id;
+    private long number;
+    private int citycode;
+    private String contrycode;
 }
